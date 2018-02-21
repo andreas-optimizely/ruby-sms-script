@@ -6,9 +6,9 @@ require 'twilio-ruby'
 FULLSTACK_PROJECT_ID = '10335804738'
 TWILIO_ACCOUNT_SID = 'ASK ANDREAS'
 TWILIO_AUTH_TOKEN = 'ASK ANDREAS'
+TWILIO_NUMBER = '+14157022765'
 
 # Setup Optimizely
-p 'Running Script'
 uri = URI("https://optimizely.s3.amazonaws.com/json/#{FULLSTACK_PROJECT_ID}.json")
 datafile = HTTParty.get(uri).body
 optimizely_client = Optimizely::Project.new(datafile, Optimizely::EventDispatcher.new, Optimizely::SimpleLogger.new)
@@ -27,7 +27,7 @@ for user in numbers
   p sms_body
   if enabled
     twilio_client.api.account.messages.create(
-      from: '+14157022765',
+      from: TWILIO_NUMBER,
       to: user,
       body: sms_body
     )   
